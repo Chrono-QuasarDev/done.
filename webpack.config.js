@@ -1,6 +1,5 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const { watchFile } = require('fs');
 
 module.exports = {
   mode: 'development',
@@ -19,4 +18,20 @@ module.exports = {
       template: './src/index.html',
     }),
   ],
+  module: {
+  rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', { modules: 'commonjs' }]
+              ]
+            }
+          }
+      }
+    ]
+  }
 }
