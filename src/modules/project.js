@@ -2,7 +2,7 @@ export class Project {
   constructor(name) {
     this.name = name;
     this.todos = [];
-    this.color = "blue";
+    this.color = "";
   }
 
   addTodo(todo) {

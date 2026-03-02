@@ -4,7 +4,12 @@ import { storeProjects, getStoredProjects} from "./modules/storage";
 
 const todoList = new Todo("Shopping", "Buy groceries from the mall nearby", "Tommorow", "high");
 const todoList2 = new Todo("Shopping2", "Buy groceries from the mall nearby", "Tommorow", "high");
+
+
 todoList2.setComplete();
+todoList.addChecklist("Buy milk");
+todoList.toggleChecked("Buy milk");
+
 
 const project = new Project("Getting Started");
 project.addTodo(todoList);
