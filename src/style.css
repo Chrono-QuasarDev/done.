@@ -1,0 +1,95 @@
+/* 
+|-----------------------------------------------------
+| CUSTOM PROPERTIES
+|-----------------------------------------------------
+*/
+:root {
+  /* Colors */
+  --color-primary: #ccff33;
+  --color-secondary: #48cae4;
+
+  /* Neutral Scale */
+  --bg-color: #000000;
+  --sidebar-color: #3a3a3a;
+  --text-color: #6f6f6f;
+  --border-color: #dee2e6;
+  --white: #f8f9fa;
+
+  /* Font Families */
+  --font-family: 'Helvetica', sans-serif;
+
+  /* Font Sizes */
+  --fs-xs: 0.75rem; /* 12px */
+  --fs-sm: 0.875rem; /* 14px */
+  --fs-base: 1rem; /* 16px (My paragraph size) */
+  --fs-lg: 1.125rem; /* 18px */
+  --fs-xl: 1.5rem; /* 24px (H4) */
+  --fs-2xl: 2rem; /* 32px (H3) */
+  --fs-3xl: 3rem; /* 48px (H2) */
+  --fs-4xl: 4rem; /* 64px (H1) */
+
+  /* Line Heights */
+  --line-height-tight: 1.1;
+  --line-height-base: 1.5;
+
+  /* Font Weights */
+  --fw-normal: 400;
+  --fw-bold: 700;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 2rem; /* 32px */
+}
+
+
+/* 
+|-----------------------------------------------------
+| BASE RESET
+|-----------------------------------------------------
+*/
+
+html {
+  font-size: 100%;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+/* 
+|-----------------------------------------------------
+| BASE STYLES
+|-----------------------------------------------------
+*/
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--fs-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+h1 {
+  font-size: var(--fs-3xl);
+  line-height: var(--line-height-tight);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
