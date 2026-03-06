@@ -10,13 +10,14 @@
 
   /* Neutral Scale */
   --bg-color: #000000;
-  --sidebar-color: #3a3a3a;
-  --text-color: #6f6f6f;
-  --border-color: #dee2e6;
+  --sidebar-color: #111111;
+  --text-color: #414141;
+  --border-color: #3a3939;
   --white: #f8f9fa;
 
   /* Font Families */
-  --font-family: 'Helvetica', sans-serif;
+  --font-family: 'Bebas Neue', sans-serif;
+  --google-fonts: "Google Sans Flex", sans-serif;
 
   /* Font Sizes */
   --fs-xs: 0.75rem; /* 12px */
@@ -69,22 +70,25 @@ html {
 */
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--google-fonts);
   font-size: var(--fs-base);
   line-height: var(--line-height-base);
   color: var(--text-color);
   background-color: var(--bg-color);
+  height: 100vh;
 }
 
 h1 {
+  font-family: var(--font-family);
   font-size: var(--fs-3xl);
   line-height: var(--line-height-tight);
   font-weight: var(--fw-bold);
   color: var(--white);
+  letter-spacing: 2px;
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--text-color);
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -92,4 +96,66 @@ a {
 ul {
   list-style: none;
   padding: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  height: 100vh;
+}
+
+
+/* ---------- Sidebar ---------- */
+aside {
+  display: grid;
+  grid-template-rows: 100px 1fr 80px;
+  background-color: var(--sidebar-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logo div {
+  font-size: var(--fs-xs);
+}
+
+.dot {
+  color: var(--color-primary);
+}
+
+.projects {
+  padding: var(--spacing-md);
+}
+
+.project_title {
+  font-size: var(--fs-xs);
+}
+
+.project_btn {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  border-right: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project_btn a {
+  display: block;
+  border: 1px dashed var(--border-color);
+  border-radius: 10px;
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
+  font-size: var(--fs-sm);
+}
+
+.project_btn a:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
