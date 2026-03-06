@@ -18,45 +18,59 @@
         <div>PROJECT MANAGER</div>
       </div>
       <div class="projects">
-        <div class="project_title">PROJECTS</div>
-        <ul></ul>
+        <div class="project-title">PROJECTS</div>
+        <ul class="project-lists">
+        </ul>
       </div>
-      <div class="project_btn">
+      <div class="project-btn">
         <a href="#">+ New Project</a>
       </div>
     </aside>
 
     <div class="main">
-      <div class="main_header">
-        <div>
-          <div>PERSONAL</div>
-          <div>
+      <div class="main-header">
+        <div class="header-container">
+          <div class="personal">PERSONAL</div>
+          <div class="data">
             <div>
-              <span>2</span> todos
+              <span class="num">2</span> todos
             </div>
             <div>
-              <span>0</span> completed
+              <span class="num">0</span> completed
             </div>
             <div>
-              <span>2</span> remaining
+              <span class="num">2</span> remaining
             </div>
           </div>
         </div>
-        <div>
-          <a href="#">+ Add Todo</a>
+        <div class="btn-container">
+          <a href="#" class="todo-btn">+ Add Todo</a>
         </div>
       </div>
 
-      <div class="filters">
-        <ul>
-          <li>All</li>
-          <li>Active</li>
-          <li>Completed</li>
-          <li>High</li>
-          <li>Medium</li>
-          <li>Low</li>
-        </ul>
-      </div>
+      <ul class="filters">
+        <li><a href="#" class="tags">All</a></li>
+        <li><a href="#" class="tags">Active</a></li>
+        <li><a href="#" class="tags">completed</a></li>
+        <li>
+          <a href="#" class="tags">
+            <span>🔴</span>
+            High
+          </a>
+        </li>
+        <li>
+          <a href="#" class="tags">
+            <span>🟡</span>
+            Medium
+          </a>
+        </li>
+        <li>
+          <a href="#" class="tags">
+            <span>🔵</span>
+            Low
+          </a>
+        </li>
+      </ul>
 
       <div class="content-area"></div>
     </div>

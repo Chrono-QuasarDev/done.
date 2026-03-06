@@ -11,7 +11,7 @@
   /* Neutral Scale */
   --bg-color: #000000;
   --sidebar-color: #111111;
-  --text-color: #414141;
+  --text-color: #909090;
   --border-color: #3a3939;
   --white: #f8f9fa;
 
@@ -133,11 +133,11 @@ aside {
   padding: var(--spacing-md);
 }
 
-.project_title {
+.project-title {
   font-size: var(--fs-xs);
 }
 
-.project_btn {
+.project-btn {
   padding: var(--spacing-sm);
   border: 1px solid var(--border-color);
   border-right: none;
@@ -146,7 +146,7 @@ aside {
   justify-content: center;
 }
 
-.project_btn a {
+.project-btn a {
   display: block;
   border: 1px dashed var(--border-color);
   border-radius: 10px;
@@ -158,4 +158,86 @@ aside {
 .project_btn a:hover {
   color: var(--color-primary);
   border-color: var(--color-primary);
+}
+
+
+/* ---------- MAIN ---------- */
+.main {
+  display: grid;
+  grid-template-rows: 130px 50px 1fr;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-block: var(--spacing-md);
+  padding-inline: var(--spacing-lg);
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.personal {
+  font-size: var(--fs-4xl);
+  font-family: var(--font-family);
+  color: var(--white);
+  line-height: var(--line-height-tight);
+}
+
+.data {
+  display: flex;
+  gap: var(--spacing-md);
+  font-size: var(--fs-xs);
+}
+
+.num {
+  color: var(--white);
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: var(--spacing-sm);
+}
+
+.todo-btn {
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
+  background-color: var(--color-primary);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+  color: var(--bg-color);
+  border-radius: 15px;
+  transition: all 0.2s ease;
+}
+
+
+.filters {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding-block: var(--spacing-md);
+  padding-inline: var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+  font-size: var(--fs-xs);
+}
+
+.tags {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 30px;
+  transition: all 0.5s ease;
+  border: 1px solid transparent;
+}
+
+.tags:nth-child(1) {
+  border: 1px solid var();
+}
+
+.tags:hover {
+  background-color: var(--sidebar-color);
+  color: var(--white);
+  border: 1px solid var(--border-color);
 }
