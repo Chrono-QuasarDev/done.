@@ -23,7 +23,7 @@
         </ul>
       </div>
       <div class="project-btn">
-        <a href="#">+ New Project</a>
+        <a href="#" id="add-project">+ New Project</a>
       </div>
     </aside>
 
@@ -74,6 +74,38 @@
 
       <div class="content-area"></div>
     </div>
+
+    <!-- Modals -->
+    <dialog id="project-modal">
+      <div class="modal-wrapper">
+        <div class="modal-title">NEW PROJECT</div>
+        <form class="project-form">
+          <label for="name">PROJECT NAME *</label>
+          <input type="text"
+                 name="project-name"
+                 id="name" placeholder="e.g. Work, Personal..." 
+                 required>
+        </form>
+        <div class="color-container">
+          <div class="color">COLOR</div>
+          <div class="color-pallete">
+            <div class="pallete yellow"></div>
+            <div class="pallete red"></div>
+            <div class="pallete blue"></div>
+            <div class="pallete green"></div>
+            <div class="pallete orange"></div>
+            <div class="pallete violet"></div>
+            <div class="pallete pink"></div>
+            <div class="pallete cyan"></div>
+            <div class="pallete mustard"></div>
+          </div>
+        </div>
+        <div class="submit-btn">
+          <button type="button" class="btn secondary-btn" id="cancel">Cancel</button>
+          <button type="submit" class="btn primary-btn">Create</button>
+        </div>
+      </div>
+    </dialog>
   </div>
 </body>
 </html>

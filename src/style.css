@@ -10,7 +10,7 @@
 
   /* Neutral Scale */
   --bg-color: #000000;
-  --sidebar-color: #111111;
+  --sidebar-color: #111010;
   --text-color: #909090;
   --border-color: #3a3939;
   --white: #f8f9fa;
@@ -32,6 +32,9 @@
   /* Line Heights */
   --line-height-tight: 1.1;
   --line-height-base: 1.5;
+
+  /* Letter Spacing */
+  --letter-spacing-tight: -1px;
 
   /* Font Weights */
   --fw-normal: 400;
@@ -104,6 +107,27 @@ ul {
   height: 100vh;
 }
 
+.btn {
+  padding-block: var(--spacing-sm);
+  padding-inline: var(--spacing-md);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-sm);
+  border: none;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background-color: var(--color-primary);
+  color: var(--bg-color);
+}
+
+.secondary-btn {
+  background-color: var(--sidebar-color);
+  border: 1px solid var(--border-color);
+  color: var(--white);
+}
 
 /* ---------- Sidebar ---------- */
 aside {
@@ -153,9 +177,10 @@ aside {
   padding-block: var(--spacing-sm);
   padding-inline: var(--spacing-md);
   font-size: var(--fs-sm);
+  background-color: var(--bg-color);
 }
 
-.project_btn a:hover {
+.project-btn a:hover {
   color: var(--color-primary);
   border-color: var(--color-primary);
 }
@@ -204,18 +229,6 @@ aside {
   padding-bottom: var(--spacing-sm);
 }
 
-.todo-btn {
-  padding-block: var(--spacing-sm);
-  padding-inline: var(--spacing-md);
-  background-color: var(--color-primary);
-  font-weight: var(--fw-bold);
-  font-size: var(--fs-sm);
-  color: var(--bg-color);
-  border-radius: 15px;
-  transition: all 0.2s ease;
-}
-
-
 .filters {
   display: flex;
   gap: var(--spacing-sm);
@@ -233,11 +246,161 @@ aside {
 }
 
 .tags:nth-child(1) {
-  border: 1px solid var();
+  border: 1px solid var(--border-color);
 }
 
 .tags:hover {
   background-color: var(--sidebar-color);
   color: var(--white);
   border: 1px solid var(--border-color);
+}
+
+
+/* ---------- MODALS ---------- */
+/* ----- PROJECT MODAL ---- */
+dialog::backdrop{
+  backdrop-filter: blur(5px);;
+}
+
+#project-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  border: none;
+  background: none;
+  padding: none;
+}
+
+.modal-wrapper {
+  background-color: #1e1e1e;
+  padding: var(--spacing-md);
+  border-radius: 20px;
+  border: 2px solid #474747;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  max-width: 332px;
+
+  backdrop-filter: blur(10px);
+}
+
+.modal-title {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-lg);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--white);
+  margin-bottom: var(--spacing-sm);
+}
+
+.project-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-form label {
+  font-size: var(--fs-xs);
+  color: var(--text-color);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-form input[type='text'] {
+  background: #1e1e1e;
+  border: 1px solid var(--color-primary);
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px;
+  color: var(--white);
+  margin-bottom: var(--spacing-sm);
+}
+
+.project-form input[type='text']:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.color-container {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.color {
+  font-size: var(--fs-xs);
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: var(--spacing-xs);
+}
+
+.color-pallete {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-md);
+}
+
+.pallete {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.green {
+  background-color: var(--color-primary);
+}
+
+.orange {
+  background-color: orange;
+}
+
+.violet {
+  background-color: violet;
+}
+
+.pink {
+  background-color: pink;
+}
+
+.cyan {
+  background-color: cyan;
+}
+
+.mustard {
+  background: #FED766;
+}
+
+.submit-btn {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+#project-modal[open] {
+  animation: modalPop 0.2s ease forwards;
 }
