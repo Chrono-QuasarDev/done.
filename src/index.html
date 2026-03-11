@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="btn-container">
-          <a href="#" class="todo-btn">+ Add Todo</a>
+          <a href="#" class="btn primary-btn" id="add-todo">+ Add Todo</a>
         </div>
       </div>
 
@@ -104,6 +104,81 @@
           <button type="button" class="btn secondary-btn" id="cancel">Cancel</button>
           <button type="submit" class="btn primary-btn">Create</button>
         </div>
+      </div>
+    </dialog>
+
+
+    <dialog id="todo-modal">
+      <div class="modal-wrapper" id="todo-wrapper">
+        <div class="form-header">
+          <h2>NEW TODO</h2>
+          <div class="cancel-todo">X</div>
+        </div>
+        <form class="todo-form">
+          <div class="form-row-1">
+            <label for="todo-name" class="form-label">TITLE *</label>
+            <input type="text"
+                  name="todo-name"
+                  id="todo-input"
+                  placeholder="What needs to be done?">
+          </div>
+
+          <div class="form-row-2">
+            <label for="description" class="form-label">DESCRIPTION</label>
+            <textarea name="description" id="description" placeholder="Optional description..."></textarea>
+          </div>
+
+          <div class="form-row-3">
+            <label for="due-date" class="form-label">DUE DATE</label>
+            <input type="date" name="due-date" id="due-date">
+          </div>
+          <div class="form-row-4">
+            <label for="priority" class="form-label">PRIORITY</label>
+            <select name="priority" id="priority">
+              <option value="low">
+                <span>🔴</span>
+                Low
+              </option>
+              <option value="medium">
+                <span>🟡</span>
+                Medium
+              </option>
+              <option value="high">
+                <span>🔵</span>
+                High
+              </option>
+            </select>
+          </div>
+          <div class="form-row-5">
+            <label for="project-cat" class="form-label">PROJECT</label>
+            <input type="text" name="project-cat" id="project-cat">
+          </div>
+          <div class="form-row-6">
+            <label for="status" class="form-label">STATUS</label>
+            <select name="status" id="status">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="form-row-7">
+            <label for="notes" class="form-label">NOTES</label>
+            <textarea name="notes" id="notes" placeholder="Any extra notes or context...."></textarea>
+          </div>
+
+          <div class="form-row-8">
+            <label for="checklist" class="form-label">CHECKLIST</label>
+            <div>
+              <input type="text" name="checklist" id="checklist">
+              <button type="button" class="btn secondary-btn form-btn">Add</button>
+            </div>
+          </div>
+
+          <div class="form-row-9">
+            <button class="btn secondary-btn form-btn cancel-todo">Cancel</button>
+            <button type="submit" class="btn primary-btn">Save Todo</button>
+          </div>
+        </form>
       </div>
     </dialog>
   </div>
