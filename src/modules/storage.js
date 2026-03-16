@@ -4,5 +4,7 @@ export function storeProjects(allProjects) {
 
 export function getStoredProjects() {
   const data = localStorage.getItem("projects");
-  return data ? JSON.parse(data) : [];
+  if (!data) return [];
+  const parsed = JSON.parse(data);
+  return Array.isArray(parsed) ? parsed : [];
 }

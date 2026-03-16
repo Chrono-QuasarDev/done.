@@ -20,6 +20,10 @@
       <div class="projects">
         <div class="project-title">PROJECTS</div>
         <ul class="project-lists">
+          <li>
+            <span class="project-dot" style="background-color: blue"></span>
+            Personal
+          </li>
         </ul>
       </div>
       <div class="project-btn">
@@ -72,8 +76,6 @@
         </li>
       </ul>
 
-      <div class="content-area"></div>
-    </div>
 
     <!-- Modals -->
     <dialog id="project-modal">
@@ -89,20 +91,28 @@
         <div class="color-container">
           <div class="color">COLOR</div>
           <div class="color-pallete">
-            <div class="pallete yellow"></div>
-            <div class="pallete red"></div>
-            <div class="pallete blue"></div>
-            <div class="pallete green"></div>
-            <div class="pallete orange"></div>
-            <div class="pallete violet"></div>
-            <div class="pallete pink"></div>
-            <div class="pallete cyan"></div>
-            <div class="pallete mustard"></div>
+            <div class="pallete yellow" data-color="yellow"></div>
+
+            <div class="pallete red" data-color="red"></div>
+
+            <div class="pallete blue" data-color="blue"></div>
+
+            <div class="pallete green" data-color="green"></div>
+
+            <div class="pallete orange" data-color="orange"></div>
+
+            <div class="pallete violet" data-color="violet"></div>
+
+            <div class="pallete pink" data-color="pink"></div>
+
+            <div class="pallete cyan" data-color="cyan"></div>
+
+            <div class="pallete mustard" data-color="mustard"></div>
           </div>
         </div>
         <div class="submit-btn">
           <button type="button" class="btn secondary-btn" id="cancel">Cancel</button>
-          <button type="submit" class="btn primary-btn">Create</button>
+          <button type="submit" class="btn primary-btn" id="create-project">Create</button>
         </div>
       </div>
     </dialog>

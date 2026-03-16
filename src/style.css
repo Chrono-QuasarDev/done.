@@ -6,7 +6,7 @@
 :root {
   /* Colors */
   --color-primary: #ccff33;
-  --color-secondary: #48cae4;
+  --color-secondary: #38421b;
 
   /* Neutral Scale */
   --bg-color: #000000;
@@ -622,6 +622,10 @@ input[type='date']:focus {
   width: 350px;
 }
 
+.form-row-8 input[type='text']:focus {
+  border: 1px dashed var(--color-primary);
+}
+
 .form-btn {
   background: #1e1e1e;
 }
@@ -637,3 +641,35 @@ input[type='date']:focus {
   border-top: 1px solid var(--border-color);
 }
 
+
+/* ----- DOM RELATED STYLES ----- */
+.project-lists {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-lists li {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+
+  padding: var(--spacing-sm);
+  border-radius: 10px;
+  font-size: var(--fs-sm);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.project-lists li:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+.project-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}

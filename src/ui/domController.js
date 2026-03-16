@@ -1,3 +1,7 @@
+import { projects, renderProject } from "../index";
+import { Project } from "../modules/project";
+import { storeProjects } from "../modules/storage";
+
 // --------- DIALOG FUNCTIONS ------------
 function closeModal(dialog) {
   dialog.classList.add("closing");
@@ -6,7 +10,6 @@ function closeModal(dialog) {
     dialog.close();
   }, { once: true });
 }
-
 
 
 // ----- PROJECT DIALOG ------
@@ -44,4 +47,29 @@ todoDialog.addEventListener("click", (event) => {
   if (!todoWrapper.contains(event.target)) {
     closeModal(todoDialog);
   }
+});
+
+
+const createProject = document.getElementById("create-project");
+const projectName = document.getElementById("name");
+const pallete = document.querySelectorAll(".pallete");
+let colorValue = "blue";
+
+pallete.forEach(div => {
+  div.addEventListener("click", () => {
+    colorValue = div.dataset.color;
+    console.log(colorValue);
+  })
+})
+
+createProject.addEventListener("click", () => {
+  const data = projectName.value;
+  const project = new Project(data, colorValue);
+  projects.push(project);
+
+  renderProject(project);
+
+  storeProjects(projects);
+  closeModal(projectDialog);
+  projectName.value = "";
 });
