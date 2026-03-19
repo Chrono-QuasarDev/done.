@@ -275,7 +275,6 @@ dialog::backdrop{
 }
 
 .modal-wrapper {
-  background: rgba(255, 255, 255, 0.05);
   padding: var(--spacing-lg);
   border-radius: 20px;
   border: 1px solid #474747;
@@ -285,6 +284,8 @@ dialog::backdrop{
   gap: var(--spacing-sm);
   /* max-width: 332px; */
 
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  --webkit-backdrop-filter: blur(10x);
   backdrop-filter: blur(10px);
 }
 
@@ -672,4 +673,115 @@ input[type='date']:focus {
   width: 10px;
   height: 10px;
   border-radius: 999px;
+}
+
+
+/* ----- TODO STYLES ----- */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+.todo-card {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: var(--sidebar-color);
+  padding: var(--spacing-md);
+  border-radius: 10px;
+  border: 2px solid #1e1e1e;
+  position: relative;
+}
+
+.todo-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 4px;
+  height: 80%; /* control height here */
+  border-radius: 999px;
+  background-color: cyan;
+}
+
+.todo-card.priority-low::before {
+  background-color: cyan;
+}
+
+.todo-card.priority-medium::before {
+  background-color: #f4c430;
+}
+
+.todo-card.priority-high::before {
+  background-color: #ff4444;
+}
+
+.todo-content {
+  display: flex;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.todo-check {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:checked + .todo-check {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.todo-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.todo-description {
+  color: #474747;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 600px;
+}
+
+.todo-info {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  margin-right: var(--spacing-lg);
+  font-size: var(--fs-xs);
+}
+
+.todo-info > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-primary);
+}
+
+.spot {
+  width: 5px;
+  height: 5px;
+  aspect-ratio: 1/1;
+  border-radius: 99px;
+  background: var(--color-primary);
+}
+
+.priority {
+  background: rgba(0, 99, 99, 0.684);
+  color: cyan;
+  padding: 0 10px;
+  border-radius: 10px;
 }
