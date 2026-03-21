@@ -5,6 +5,7 @@ import { Todo } from "../modules/todo";
 
 const contentArea = document.querySelector(".content-area");
 
+
 // --------- DIALOG FUNCTIONS ------------
 function closeModal(dialog) {
   dialog.classList.add("closing");
@@ -159,8 +160,26 @@ export function renderTodos(project) {
           <div class="spot"></div>${todo.dueDate}
         </div>
         <div class="priority">${todo.priority}</div>
+        <div class="delete-todo">x</div>
       </div>`
     contentArea.append(card);
+
+    const closeTodoElement = card.querySelector(".delete-todo");
+
+    closeTodoElement.addEventListener("click", (event) => {
+      event.stopPropagation();
+      activeProject.removeTodo(todo.title);
+      storeProjects(projects);
+      renderTodos(activeProject);
+    });
+
+    card.addEventListener("mouseenter", () => {
+      closeTodoElement.style.opacity = 1;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      closeTodoElement.style.opacity = 0;
+    });
 
     card.addEventListener("click", () => {
       const detailPanel = document.getElementById("detail-panel");
@@ -194,4 +213,15 @@ export function renderTodos(project) {
       });
     });
   });
+
+  const totalTodos = project.todos.length;
+  const completedTodos = project.todos.filter(todo => todo.completed === true).length;
+  const remainingTodos = totalTodos - completedTodos;
+  renderDynamicStats(totalTodos, completedTodos, remainingTodos);
+}
+
+function renderDynamicStats(total, completed, remaining) {
+  document.getElementById("todo-num").textContent = total;
+  document.getElementById("completed-num").textContent = completed;
+  document.getElementById("remaining-num").textContent = remaining;
 }
