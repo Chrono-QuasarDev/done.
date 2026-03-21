@@ -33,23 +33,6 @@ projectDialog.addEventListener("click", (event) => {
 });
 
 
-export function renderProject(project) {
-  const projectLists = document.querySelector(".project-lists");
-  const projectLi = document.createElement("li");
-  projectLi.innerHTML = `
-  <span class="project-dot" style="background-color: ${project.color}"></span>
-  ${project.name}`;
-
-  projectLi.addEventListener("click", () => {
-    setActiveProject(project);
-    const headerTitle = document.querySelector(".personal");
-    headerTitle.textContent = project.name;
-    renderTodos(project)
-  });
-  projectLists.append(projectLi);
-}
-
-
 // ----- TODO MODAL -----
 const todoDialog = document.getElementById("todo-modal");
 const todoWrapper = document.getElementById("todo-wrapper");
@@ -70,8 +53,6 @@ todoDialog.addEventListener("click", (event) => {
 });
 
 
-const createProject = document.getElementById("create-project");
-const projectName = document.getElementById("name");
 const pallete = document.querySelectorAll(".pallete");
 let colorValue = "blue";
 let project = null;
@@ -83,17 +64,37 @@ pallete.forEach(div => {
   })
 })
 
+const createProject = document.getElementById("create-project");
+const projectName = document.getElementById("name");
+const headerTitle = document.querySelector(".personal");
+
 createProject.addEventListener("click", () => {
   const data = projectName.value;
   project = new Project(data, colorValue);
   projects.push(project);
+  headerTitle.textContent = project.name;
 
   renderProject(project);
-
   storeProjects(projects);
   closeModal(projectDialog);
   projectName.value = "";
 });
+
+export function renderProject(project) {
+  const projectLists = document.querySelector(".project-lists");
+  const projectLi = document.createElement("li");
+  projectLi.innerHTML = `
+  <span class="project-dot" style="background-color: ${project.color}"></span>
+  ${project.name}`;
+
+  projectLi.addEventListener("click", () => {
+    setActiveProject(project);
+    headerTitle.textContent = project.name;
+    renderTodos(project);
+    return headerTitle.textContent;
+  });
+  projectLists.append(projectLi);
+}
 
 
 const saveTodo = document.querySelector(".save-todo");
@@ -102,7 +103,10 @@ const todoDescription = document.getElementById("description");
 const dueDate = document.getElementById("due-date");
 const priority = document.getElementById("priority");
 const status = document.getElementById("status");
+const projectCat = document.getElementById("project-cat");
 const todoForm = document.querySelector(".todo-form");
+let todoState = "create";
+let savedTodo = null;
 
 saveTodo.addEventListener("click", (event) => {
   event.preventDefault();
@@ -112,12 +116,27 @@ saveTodo.addEventListener("click", (event) => {
   const priorityData = priority.value;
   const statusData = status.value;
 
-  const todo = new Todo(inputData, descriptionData, dateString, priorityData);
-  activeProject.addTodo(todo);
-  storeProjects(projects);
-  renderTodos(activeProject);
-  closeModal(todoDialog);
-  todoForm.reset();
+  if (todoState === "create") {
+    const todo = new Todo(inputData, descriptionData, dateString, priorityData);
+    activeProject.addTodo(todo);
+    storeProjects(projects);
+    renderTodos(activeProject);
+    closeModal(todoDialog);
+    todoForm.reset(); 
+
+  } else {
+    savedTodo.title = inputData;
+    savedTodo.description = descriptionData;
+    savedTodo.dueDate = dateString;
+    savedTodo.priority = priorityData;
+    storeProjects(projects);
+    renderTodos(activeProject);
+    closeModal(todoDialog);
+    todoForm.reset();
+    todoState = "create";
+    savedTodo = null;
+    console.log(savedTodo);
+  }
 });
 
 
@@ -142,5 +161,37 @@ export function renderTodos(project) {
         <div class="priority">${todo.priority}</div>
       </div>`
     contentArea.append(card);
+
+    card.addEventListener("click", () => {
+      const detailPanel = document.getElementById("detail-panel");
+      const panelWrapper = document.querySelector(".panel-wrapper");
+      detailPanel.showModal();
+      panelWrapper.innerHTML = `
+        <h3>${todo.title}</h3>
+        <p>${todo.description}</p>
+        <p>Due: ${todo.dueDate}</p>
+        <p>Priority: ${todo.priority}</p>
+        <p>Notes: ${todo.notes}</p>
+        <div class="panel-actions">
+          <button class="btn secondary-btn" id="close-panel">X</button>
+          <button class="btn primary-btn" id="edit-todo">Edit</button>
+        </div>
+      `;
+
+      document.getElementById("close-panel").addEventListener("click", () => {
+        detailPanel.close();
+      });
+
+      document.getElementById("edit-todo").addEventListener("click", () => {
+        todoInput.value = todo.title;
+        todoDescription.value = todo.description;
+        dueDate.value = todo.dueDate;
+        priority.value = todo.priority;
+        detailPanel.close();
+        todoDialog.showModal();
+        todoState = "edit";
+        savedTodo = todo;
+      });
+    });
   });
 }

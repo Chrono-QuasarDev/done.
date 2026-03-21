@@ -203,6 +203,7 @@ aside {
 .header-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
 .personal {
@@ -216,6 +217,7 @@ aside {
   display: flex;
   gap: var(--spacing-md);
   font-size: var(--fs-xs);
+  margin-bottom: var(--spacing-xs);
 }
 
 .num {
@@ -255,6 +257,53 @@ aside {
   border: 1px solid var(--border-color);
 }
 
+.todo-area {
+  display: flex;
+  overflow: hidden;
+  height: 100%;
+}
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+
+.panel-wrapper {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  backdrop-filter: blur(10px);
+  border: 1px solid #474747;
+  border-radius: 20px;
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-width: 320px;
+  color: var(--white);
+}
+
+.panel-wrapper h3 {
+  font-size: var(--fs-xl);
+  font-family: var(--font-family);
+  letter-spacing: 1px;
+}
+
+.panel-wrapper p {
+  font-size: var(--fs-sm);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.panel-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+  margin-top: var(--spacing-sm);
+}
 
 /* ---------- MODALS ---------- */
 /* ----- PROJECT MODAL ---- */
@@ -263,7 +312,8 @@ dialog::backdrop{
 }
 
 #project-modal,
-#todo-modal {
+#todo-modal, 
+#detail-panel {
   position: fixed;
   top: 50%;
   left: 50%;
