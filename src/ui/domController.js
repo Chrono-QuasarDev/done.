@@ -144,80 +144,107 @@ saveTodo.addEventListener("click", (event) => {
 export function renderTodos(project) {
   contentArea.innerHTML = '';
   project.todos.forEach(todo => {
-    const card = document.createElement("div");
-    card.classList.add("todo-card", `priority-${todo.priority}`);
-    card.innerHTML = `
-      <div class="todo-content">
-        <input type="checkbox" id="done">
-        <label for="done" class="todo-check"></label>
-        <div>
-          <div class="todo-title">${todo.title}</div>
-          <div class="todo-description">${todo.description}</div>
-        </div>
-      </div>
-      <div class="todo-info">
-        <div>
-          <div class="spot"></div>${todo.dueDate}
-        </div>
-        <div class="priority">${todo.priority}</div>
-        <div class="delete-todo">x</div>
-      </div>`
-    contentArea.append(card);
-
-    const closeTodoElement = card.querySelector(".delete-todo");
-
-    closeTodoElement.addEventListener("click", (event) => {
-      event.stopPropagation();
-      activeProject.removeTodo(todo.title);
-      storeProjects(projects);
-      renderTodos(activeProject);
-    });
-
-    card.addEventListener("mouseenter", () => {
-      closeTodoElement.style.opacity = 1;
-    });
-
-    card.addEventListener("mouseleave", () => {
-      closeTodoElement.style.opacity = 0;
-    });
-
-    card.addEventListener("click", () => {
-      const detailPanel = document.getElementById("detail-panel");
-      const panelWrapper = document.querySelector(".panel-wrapper");
-      detailPanel.showModal();
-      panelWrapper.innerHTML = `
-        <h3>${todo.title}</h3>
-        <p>${todo.description}</p>
-        <p>Due: ${todo.dueDate}</p>
-        <p>Priority: ${todo.priority}</p>
-        <p>Notes: ${todo.notes}</p>
-        <div class="panel-actions">
-          <button class="btn secondary-btn" id="close-panel">X</button>
-          <button class="btn primary-btn" id="edit-todo">Edit</button>
-        </div>
-      `;
-
-      document.getElementById("close-panel").addEventListener("click", () => {
-        detailPanel.close();
-      });
-
-      document.getElementById("edit-todo").addEventListener("click", () => {
-        todoInput.value = todo.title;
-        todoDescription.value = todo.description;
-        dueDate.value = todo.dueDate;
-        priority.value = todo.priority;
-        detailPanel.close();
-        todoDialog.showModal();
-        todoState = "edit";
-        savedTodo = todo;
-      });
-    });
+    const card = createTodoCard(todo);
+    contentArea.appendChild(card);
   });
 
   const totalTodos = project.todos.length;
   const completedTodos = project.todos.filter(todo => todo.completed === true).length;
   const remainingTodos = totalTodos - completedTodos;
   renderDynamicStats(totalTodos, completedTodos, remainingTodos);
+}
+
+function createTodoCard(todo) {
+  const card = document.createElement("div");
+  card.classList.add("todo-card", `priority-${todo.priority}`);
+  if (todo.completed) {
+    card.classList.add("completed");
+  }
+  card.innerHTML = `
+    <div class="todo-content">
+      <input type="checkbox" id="done">
+      <label for="done" class="todo-check"></label>
+      <div>
+        <div class="todo-title">${todo.title}</div>
+        <div class="todo-description">${todo.description}</div>
+      </div>
+    </div>
+    <div class="todo-info">
+      <div>
+        <div class="spot"></div>${todo.dueDate}
+      </div>
+      <div class="priority">${todo.priority}</div>
+      <div class="delete-todo">x</div>
+    </div>
+  `;
+
+  const todoCheckbox = card.querySelector(".todo-check");
+  const todoCheckInput = card.querySelector("input[type='checkbox']");
+
+  todoCheckInput.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+
+  todoCheckbox.addEventListener("click", (event) => {
+    event.stopPropagation();
+    todo.setComplete();
+    card.classList.toggle("completed", todo.completed);
+    storeProjects(projects);
+    renderDynamicStats(
+      activeProject.todos.length,
+      activeProject.todos.filter(t => t.completed).length,
+      activeProject.todos.filter(t => !t.completed).length
+    );
+  });
+
+  const closeTodoElement = card.querySelector(".delete-todo");
+
+  closeTodoElement.addEventListener("click", (event) => {
+    event.stopPropagation();
+    activeProject.removeTodo(todo.title);
+    storeProjects(projects);
+    renderTodos(activeProject);
+  });
+
+  card.addEventListener("mouseenter", () => {
+    closeTodoElement.style.opacity = 1;
+  });
+
+  card.addEventListener("mouseleave", () => {
+    closeTodoElement.style.opacity = 0;
+  });
+
+  card.addEventListener("click", () => {
+    const detailPanel = document.getElementById("detail-panel");
+    const panelWrapper = document.querySelector(".panel-wrapper");
+    detailPanel.showModal();
+    panelWrapper.innerHTML = `
+      <h3>${todo.title}</h3>
+      <p>${todo.description}</p>
+      <p>Due: ${todo.dueDate}</p>
+      <p>Priority: ${todo.priority}</p>
+      <div class="panel-actions">
+        <button class="btn secondary-btn" id="close-panel">X</button>
+        <button class="btn primary-btn" id="edit-todo">Edit</button>
+      </div>
+    `;
+
+    document.getElementById("close-panel").addEventListener("click", () => {
+      detailPanel.close();
+    });
+
+    document.getElementById("edit-todo").addEventListener("click", () => {
+      todoInput.value = todo.title;
+      todoDescription.value = todo.description;
+      dueDate.value = todo.dueDate;
+      priority.value = todo.priority;
+      detailPanel.close();
+      todoDialog.showModal();
+      todoState = "edit";
+      savedTodo = todo;
+    });
+  });
+  return card;
 }
 
 function renderDynamicStats(total, completed, remaining) {

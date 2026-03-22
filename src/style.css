@@ -681,10 +681,12 @@ input[type='date']:focus {
   transition: all 0.5s ease;
 }
 
-.project-lists li:hover {
+.project-lists li:hover,
+.project-lists li.selected {
   background-color: var(--color-secondary);
   color: var(--color-primary);
 }
+
 
 .project-dot {
   width: 10px;
@@ -711,6 +713,20 @@ input[type='date']:focus {
   border: 2px solid #1e1e1e;
   position: relative;
   cursor: pointer;
+}
+
+.todo-card.completed .todo-title {
+  text-decoration: line-through;
+  color: var(--text-color);
+}
+
+.todo-card.completed {
+  opacity: 0.5;
+  border-color: transparent;
+}
+
+.todo-card.completed .todo-title {
+  text-decoration: line-through;
 }
 
 .todo-card::before {

@@ -5,22 +5,13 @@ export class Todo {
     this.dueDate = dueDate;
     this.priority = priority || "low";
     this.completed = false;
-    this.checklist = [];
-    this.notes = "";
   }
 
   setComplete() {
-    this.completed = true;
-  }
-
-  addChecklist(text) {
-    this.checklist.push({text: text, checked: false});
-  }
-
-  toggleChecked(text) {
-    const item = this.checklist.find(item => item.text === text);
-    if (item) {
-      item.checked = !item.checked;
+    if (!this.completed) {
+      this.completed = true;
+    } else {
+      this.completed = false;
     }
   }
 }
