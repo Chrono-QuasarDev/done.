@@ -1,5 +1,4 @@
-import { renderProject } from "../ui/domController";
-import { getStoredProjects, storeProjects } from "./storage";
+import { getStoredProjects } from "./storage";
 
 export let projects = getStoredProjects() || [];
 export let activeProject = null;

@@ -8,10 +8,6 @@ export class Todo {
   }
 
   setComplete() {
-    if (!this.completed) {
-      this.completed = true;
-    } else {
-      this.completed = false;
-    }
+    this.completed = !this.completed;
   }
 }
