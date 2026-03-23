@@ -1,4 +1,4 @@
-# done.
+# DONE.
 
 A modern, multi-project todo application for organizing and tracking your tasks efficiently.
 
