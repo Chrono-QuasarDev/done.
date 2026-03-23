@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap" rel="stylesheet">
+
+  <title>Done.</title>
+<script defer src="./main.js"></script></head>
+<body>
+  <div class="container">
+    <aside>
+      <div class="logo">
+        <h1>DONE<span class="dot">.</span></h1>
+        <div>PROJECT MANAGER</div>
+      </div>
+      <div class="projects">
+        <div class="project-title">PROJECTS</div>
+        <ul class="project-lists"></ul>
+      </div>
+      <div class="project-btn">
+        <a href="#" id="add-project">+ New Project</a>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="main-header">
+        <div class="header-container">
+          <div class="personal"></div>
+          <div class="data">
+            <div>
+              <span class="num" id="todo-num">2</span> todos
+            </div>
+            <div>
+              <span class="num" id="completed-num">0</span> completed
+            </div>
+            <div>
+              <span class="num" id="remaining-num">2</span> remaining
+            </div>
+          </div>
+        </div>
+        <div class="btn-container">
+          <a href="#" class="btn primary-btn" id="add-todo">+ Add Todo</a>
+        </div>
+      </div>
+
+      <ul class="filters">
+        <li><a href="#" class="tags">All</a></li>
+        <li><a href="#" class="tags">Active</a></li>
+        <li><a href="#" class="tags">completed</a></li>
+        <li>
+          <a href="#" class="tags">
+            <span>🔴</span>
+            High
+          </a>
+        </li>
+        <li>
+          <a href="#" class="tags">
+            <span>🟡</span>
+            Medium
+          </a>
+        </li>
+        <li>
+          <a href="#" class="tags">
+            <span>🔵</span>
+            Low
+          </a>
+        </li>
+      </ul>
+      
+      <div class="todo-area">
+        <div class="content-area"></div>
+        <dialog class="detail-panel" id="detail-panel">
+          <div class="panel-wrapper"></div>
+        </dialog>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <dialog id="project-modal">
+      <div class="modal-wrapper">
+        <div class="modal-title">NEW PROJECT</div>
+        <form class="project-form">
+          <label for="name">PROJECT NAME *</label>
+          <input type="text"
+                 name="project-name"
+                 id="name" placeholder="e.g. Work, Personal..." 
+                 required>
+        </form>
+        <div class="color-container">
+          <div class="color">COLOR</div>
+          <div class="color-pallete">
+            <div class="pallete yellow" data-color="yellow"></div>
+
+            <div class="pallete red" data-color="red"></div>
+
+            <div class="pallete blue" data-color="blue"></div>
+
+            <div class="pallete green" data-color="green"></div>
+
+            <div class="pallete orange" data-color="orange"></div>
+
+            <div class="pallete violet" data-color="violet"></div>
+
+            <div class="pallete pink" data-color="pink"></div>
+
+            <div class="pallete cyan" data-color="cyan"></div>
+
+            <div class="pallete mustard" data-color="mustard"></div>
+          </div>
+        </div>
+        <div class="submit-btn">
+          <button type="button" class="btn secondary-btn" id="cancel">Cancel</button>
+          <button type="submit" class="btn primary-btn" id="create-project">Create</button>
+        </div>
+      </div>
+    </dialog>
+
+
+    <dialog id="todo-modal">
+      <div class="modal-wrapper" id="todo-wrapper">
+        <div class="form-header">
+          <h2>NEW TODO</h2>
+          <div class="cancel-todo">X</div>
+        </div>
+        <form class="todo-form">
+          <div class="form-row-1">
+            <label for="todo-name" class="form-label">TITLE *</label>
+            <input type="text"
+                  name="todo-name"
+                  id="todo-input"
+                  placeholder="What needs to be done?">
+          </div>
+
+          <div class="form-row-2">
+            <label for="description" class="form-label">DESCRIPTION</label>
+            <textarea name="description" id="description" placeholder="Optional description..."></textarea>
+          </div>
+
+          <div class="form-row-3">
+            <label for="due-date" class="form-label">DUE DATE</label>
+            <input type="date" name="due-date" id="due-date">
+          </div>
+          <div class="form-row-4">
+            <label for="priority" class="form-label">PRIORITY</label>
+            <select name="priority" id="priority">
+              <option value="low">
+                <span>🔴</span>
+                Low
+              </option>
+              <option value="medium">
+                <span>🟡</span>
+                Medium
+              </option>
+              <option value="high">
+                <span>🔵</span>
+                High
+              </option>
+            </select>
+          </div>
+          <div class="form-row-5">
+            <label for="project-cat" class="form-label">PROJECT</label>
+            <input type="text" name="project-cat" id="project-cat">
+          </div>
+          <div class="form-row-6">
+            <label for="status" class="form-label">STATUS</label>
+            <select name="status" id="status">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+
+          <div class="form-row-9">
+            <button class="btn secondary-btn form-btn cancel-todo">Cancel</button>
+            <button type="submit" class="btn primary-btn save-todo">Save Todo</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  </div>
+</body>
+</html>
