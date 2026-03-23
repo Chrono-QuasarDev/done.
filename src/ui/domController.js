@@ -2,6 +2,7 @@ import { projects, activeProject, setActiveProject } from "../modules/state";
 import { Project } from "../modules/project";
 import { storeProjects } from "../modules/storage";
 import { Todo } from "../modules/todo";
+import { removeProject } from "../modules/state";
 
 const contentArea = document.querySelector(".content-area");
 
@@ -56,12 +57,11 @@ todoDialog.addEventListener("click", (event) => {
 
 const pallete = document.querySelectorAll(".pallete");
 let colorValue = "blue";
-let project = null;
+let project = null; // This contains the project object that is created when the form is filled in.
 
 pallete.forEach(div => {
   div.addEventListener("click", () => {
     colorValue = div.dataset.color;
-    console.log(colorValue);
   })
 })
 
@@ -71,12 +71,24 @@ const headerTitle = document.querySelector(".personal");
 
 createProject.addEventListener("click", () => {
   const data = projectName.value;
-  project = new Project(data, colorValue);
-  projects.push(project);
+  project = new Project(data, colorValue); // Creates the project object from the project class constructor.
+  projects.push(project); // This adds the created project into an array.
+  setActiveProject(project); // Set as active project
   headerTitle.textContent = project.name;
 
-  renderProject(project);
-  storeProjects(projects);
+  renderProject(project); // This creates and renderes the project visually.
+  renderTodos(project); // Render todos (empty list) and update stats
+  
+  // Mark new project as selected visually
+  document.querySelectorAll(".project-lists li").forEach(li => {
+    li.classList.remove("selected");
+  });
+  const newProjectLi = document.querySelector(".project-lists li:last-child");
+  if (newProjectLi) {
+    newProjectLi.classList.add("selected");
+  }
+  
+  storeProjects(projects); // Stores the array that has all the projects in the localStorage.
   closeModal(projectDialog);
   projectName.value = "";
 });
@@ -85,18 +97,54 @@ export function renderProject(project) {
   const projectLists = document.querySelector(".project-lists");
   const projectLi = document.createElement("li");
   projectLi.innerHTML = `
-  <span class="project-dot" style="background-color: ${project.color}"></span>
-  ${project.name}`;
+  <div class="project-info">
+    <span class="project-dot" style="background-color: ${project.color}"></span>
+    ${project.name}
+  </div>
+  <div class="close-project">x</div>`;
 
   projectLi.addEventListener("click", () => {
     setActiveProject(project);
     headerTitle.textContent = project.name;
+    
+    // Remove selected class from all projects
+    document.querySelectorAll(".project-lists li").forEach(li => {
+      li.classList.remove("selected");
+    });
+    // Add selected class to clicked project
+    projectLi.classList.add("selected");
+    
     renderTodos(project);
     return headerTitle.textContent;
   });
+
+  const closeProjectElement = projectLi.querySelector(".close-project");
+  closeProjectElement.addEventListener("click", (event) => {
+    event.stopPropagation();
+    removeProject(project.name);
+    storeProjects(projects);
+    
+    // If deleted project was active, clear everything
+    if (activeProject === project) {
+      setActiveProject(null);
+      headerTitle.textContent = '';
+      contentArea.innerHTML = '';
+      document.getElementById("todo-num").textContent = '0';
+      document.getElementById("completed-num").textContent = '0';
+      document.getElementById("remaining-num").textContent = '0';
+    }
+    
+    renderAllProjects();
+  });
+
   projectLists.append(projectLi);
 }
 
+function renderAllProjects() {
+  const projectLists = document.querySelector(".project-lists");
+  projectLists.innerHTML = '';
+  projects.forEach(proj => renderProject(proj));
+}
 
 const saveTodo = document.querySelector(".save-todo");
 const todoInput = document.getElementById("todo-input");
@@ -109,19 +157,57 @@ const todoForm = document.querySelector(".todo-form");
 let todoState = "create";
 let savedTodo = null;
 
+function setProjectAsActive(project) {
+  setActiveProject(project);
+  headerTitle.textContent = project.name;
+  
+  // Mark as selected in sidebar
+  const projectLis = document.querySelectorAll(".project-lists li");
+  projectLis.forEach((li, index) => {
+    li.classList.remove("selected");
+    if (projects[index] === project) {
+      li.classList.add("selected");
+    }
+  });
+}
+
 saveTodo.addEventListener("click", (event) => {
   event.preventDefault();
+  
   const inputData = todoInput.value;
   const descriptionData = todoDescription.value;
   const dateString = dueDate.value;
   const priorityData = priority.value;
-  const statusData = status.value;
-
+  const projectName = projectCat.value.trim();
+  
+  let targetProject = activeProject;
+  
+  // If project name is provided in the form, find or create project
+  if (projectName) {
+    // Check if project already exists (case-insensitive)
+    targetProject = projects.find(p => p.name.toLowerCase() === projectName.toLowerCase());
+    
+    // If project doesn't exist, create it
+    if (!targetProject) {
+      targetProject = new Project(projectName, "blue"); // default color for implicitly created projects
+      projects.push(targetProject);
+      renderProject(targetProject);
+    }
+    
+    setProjectAsActive(targetProject);
+  }
+  
+  // Guard: Can't add todo without a target project
+  if (!targetProject) {
+    alert("Please create or select a project first");
+    return;
+  }
+  
   if (todoState === "create") {
     const todo = new Todo(inputData, descriptionData, dateString, priorityData);
-    activeProject.addTodo(todo);
+    targetProject.addTodo(todo);
     storeProjects(projects);
-    renderTodos(activeProject);
+    renderTodos(targetProject);
     closeModal(todoDialog);
     todoForm.reset(); 
 
@@ -131,12 +217,11 @@ saveTodo.addEventListener("click", (event) => {
     savedTodo.dueDate = dateString;
     savedTodo.priority = priorityData;
     storeProjects(projects);
-    renderTodos(activeProject);
+    renderTodos(targetProject);
     closeModal(todoDialog);
     todoForm.reset();
     todoState = "create";
     savedTodo = null;
-    console.log(savedTodo);
   }
 });
 
@@ -160,10 +245,14 @@ function createTodoCard(todo) {
   if (todo.completed) {
     card.classList.add("completed");
   }
+  
+  // Create unique ID for checkbox
+  const uniqueId = "todo-" + Date.now() + "-" + Math.random().toString(36).slice(2);
+  
   card.innerHTML = `
     <div class="todo-content">
-      <input type="checkbox" id="done">
-      <label for="done" class="todo-check"></label>
+      <input type="checkbox" id="${uniqueId}">
+      <label for="${uniqueId}" class="todo-check"></label>
       <div>
         <div class="todo-title">${todo.title}</div>
         <div class="todo-description">${todo.description}</div>

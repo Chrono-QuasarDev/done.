@@ -671,7 +671,10 @@ input[type='date']:focus {
 .project-lists li {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--spacing-sm);
+  max-width: 220px;
+  width: 100%;
 
   padding: var(--spacing-sm);
   border-radius: 10px;
@@ -694,6 +697,28 @@ input[type='date']:focus {
   border-radius: 999px;
 }
 
+.project-info {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.close-project {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-right: var(--spacing-sm);
+  font-weight: var(--fw-bold);
+  padding-inline: var(--spacing-sm) var(--spacing-sm);
+  border-radius: 99px;
+  border: 1px solid transparent;
+  transition: all 0.5s ease;
+}
+
+.close-project:hover {
+  background-color: var(--sidebar-color);
+  border: 1px solid var(--border-color);
+}
 
 /* ----- TODO STYLES ----- */
 .content-area {
